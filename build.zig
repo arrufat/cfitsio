@@ -16,11 +16,14 @@ pub fn build(b: *std.Build) void {
     // Library
     const lib_step = b.step("lib", "Install library");
 
-    const lib = b.addStaticLibrary(.{
+    const lib = b.addLibrary(.{
         .name = "cfitsio",
-        .target = target,
+        .linkage = .static,
+        .root_module = b.createModule(.{
+            .target = target,
+            .optimize = optimize,
+        }),
         .version = version,
-        .optimize = optimize,
     });
 
     var flags = std.BoundedArray([]const u8, 6){};
