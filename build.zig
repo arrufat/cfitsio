@@ -43,7 +43,7 @@ pub fn build(b: *std.Build) void {
 
     lib.addCSourceFiles(.{ .root = cfitsio_path, .files = &SOURCES, .flags = flags.items });
     lib.installHeadersDirectory(cfitsio_path, "", .{ .include_extensions = &HEADERS });
-    lib.linkSystemLibrary2("z", .{ .preferred_link_mode = .static });
+    lib.linkSystemLibrary("z");
     lib.linkLibC();
 
     const lib_install = b.addInstallArtifact(lib, .{});
